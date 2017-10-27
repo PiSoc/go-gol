@@ -36,13 +36,21 @@ func main() {
 	defer c.Close()
 
     for {
-
+		i := 1
+		if i>24 {
+			i = 0
+		}	
+		R := 128+sin((i*3+0)*1.3)*128;
+		G := 128+sin((i*3+1)*1.3)*128;
+		B := 128+sin((i*3+2)*1.3)*128;
+		alpha := 150
+		
         // Draw living cells
 	    bounds := c.Bounds()
 	    for x := bounds.Min.X; x < bounds.Max.X; x++ {
 	        for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
                 if getInt(board,x,y) == 1 {
-                    c.Set(x, y, color.RGBA{50, 50, 255, 150})
+                    c.Set(x, y, color.RGBA{R, G, B, alpha})
                 }
 		    }
 	    }
@@ -64,7 +72,7 @@ func main() {
 
         //0.08 sec
         time.Sleep(80 *1000 *1000)
-
+		i++
     }
 
 }
